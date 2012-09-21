@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
+#define BUFSIZE 10
 
 char *make_string(char *old_str) {
     char *new_str = (char *) malloc(strlen(old_str) * sizeof(char));
@@ -23,21 +23,22 @@ int read_file(char* path) {
         exit(6);
     }
     //It can be read by character but it's more useful to put it in memory
-    fseek(fd, 0, SEEK_END);
-    int str_size = ftell(fd);
-    rewind(fd);
-    char* str = (char *) malloc(sizeof(char) * str_size);
+    char* str = (char *) malloc(sizeof(char) * BUFSIZE);
+    int str_size = 0;
     if (str == NULL) {
         fprintf(stderr, "Unable to allocate memory.\n");
         exit(7);
     }
-    int result = read(str, 1, str_size, fd);
-    if (result != str_size) {
-        fprintf(stderr, "Unable to read file\n");
-    }
-    str[str_size - 1] = '\0';
-    printf("%s\n", str);
+    str_size = read(fd, str, (BUFSIZE - 1) * sizeof(char));
+    while (str_size != 0) {
+        str[str_size] == '\0';
+        printf("%s", str);
+        str_size = read(fd, str, (BUFSIZE - 1) * sizeof(char));
+ //       printf("  %d\n", str_size);
+        }
+    printf("\n");
     free(str);
+    close(fd);
     return 0;
 }
 
