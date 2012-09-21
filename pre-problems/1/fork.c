@@ -19,10 +19,11 @@ int main(void) {
         printf("\nI'm a child..\n");
         PRINT_PID
         if (myppid == 1)
-            fprintf(stderr, "Oops. My parent has already dead.\n");
+            fprintf(stderr, "Oops. My parent has already died.\n");
     } else {
         printf("I'm a parent. My child is %d.\n", chpid);
         PRINT_PID
+        sleep(1);
     }
 	return 0;
 }
