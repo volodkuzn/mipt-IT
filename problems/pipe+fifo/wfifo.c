@@ -48,6 +48,7 @@ int main(int argc, char* argv[]) {
         //}
         list_dir_to(argv[1], mypipe[1]);
         //close(mypipe[1]);
+        //COMMENT PA: зачем здесь _exit а не просто exit
         _exit(0);
     } else {//reader
         //printf("I'm a parent.\n"); // It's not working without this string. I have no idea why.
@@ -58,12 +59,14 @@ int main(int argc, char* argv[]) {
         //make FIFO
         umask(0);
         char* filename = "temp.fifo";
+        // COMMENT PA: имеет ли смысл для фифо режим исполнения?
         int errcode = mkfifo(filename, 0777);
 
         int fd = open(filename, O_WRONLY);
         ssize_t wsize;
 
         ssize_t str_size = -1;
+         //COMMENT PA: а почему не просто звдение массива?
         char* str = (char*) malloc(BUFSIZE * sizeof(char));
         while (str_size != 0) {
             str_size = read(mypipe[0], str, BUFSIZE);
