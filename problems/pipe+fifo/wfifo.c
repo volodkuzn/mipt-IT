@@ -49,6 +49,7 @@ int main(int argc, char* argv[]) {
         list_dir_to(argv[1], mypipe[1]);
         //close(mypipe[1]);
         //COMMENT PA: зачем здесь _exit а не просто exit
+        //COMMENT: _exit() не сбрасывает буфер при выходе, а exit() делает это. Чтобы не выводить одно и то же 2 раза.
         _exit(0);
     } else {//reader
         //printf("I'm a parent.\n"); // It's not working without this string. I have no idea why.
@@ -60,13 +61,15 @@ int main(int argc, char* argv[]) {
         umask(0);
         char* filename = "temp.fifo";
         // COMMENT PA: имеет ли смысл для фифо режим исполнения?
+        // COMMENT: Нет, не имеет, поэтому он может быть в любом положении. У меня fifo просто не стал исполняться из-за отсутствия прав.
         int errcode = mkfifo(filename, 0777);
 
         int fd = open(filename, O_WRONLY);
         ssize_t wsize;
 
         ssize_t str_size = -1;
-         //COMMENT PA: а почему не просто звдение массива?
+         //COMMENT PA: а почему не просто заведние массива?
+         //COMMENT: Так красивее, никакой разницы ведь нет.
         char* str = (char*) malloc(BUFSIZE * sizeof(char));
         while (str_size != 0) {
             str_size = read(mypipe[0], str, BUFSIZE);
