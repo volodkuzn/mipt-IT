@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
     //char* bufstr = (char*) malloc(BUFSIZE * sizeof(char));
     int str_size = 0;
     int r_size = -1;
-    char* str = (char*) malloc(BUFSIZE * sizeof(char));//а вдруг в буфер сразу не влезет
+    char* str = (char *) malloc(BUFSIZE * sizeof(char));//а вдруг в буфер сразу не влезет
     char* p_str = str;
     while (r_size != 0) {
         r_size = read(mypipe[0], p_str, BUFSIZE - 1);

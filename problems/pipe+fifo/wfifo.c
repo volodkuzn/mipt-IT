@@ -80,6 +80,8 @@ int main(int argc, char* argv[]) {
                 fprintf(stderr, "Can't write all string");
             }
         }
+        free(str);
+        str = NULL;
         close(mypipe[0]);
         exit(0);
     }

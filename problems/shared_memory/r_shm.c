@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
     //    fprintf(stderr, "Can't get shared memory. Error:%d\n", errno);
     //    exit(0);
     //}
-    int *mem = shmat(shmid, NULL, SHM_RDONLY);//unknown warning
+    char* mem = shmat(shmid, NULL, SHM_RDONLY);//unknown warning
     char* str = mem + sizeof(int);
     printf("%s", str);
     shmdt(mem);

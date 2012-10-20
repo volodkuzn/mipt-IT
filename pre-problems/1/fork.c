@@ -23,7 +23,9 @@ int main(void) {
     } else {
         printf("I'm a parent. My child is %d.\n", chpid);
         PRINT_PID
-        sleep(1);
+        int i;
+        for (i = 0; i < 10000000; i++);
+        //sleep(1);
     }
 	return 0;
 }
