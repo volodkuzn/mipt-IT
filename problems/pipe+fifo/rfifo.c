@@ -19,6 +19,7 @@ int read_file(char* path) {
     }
     str_size = read(fd, str, (BUFSIZE - 1) * sizeof(char));
     while (str_size != 0) {
+        // COMMENT PA: а всегда ли нужно ставить признак конца строки?
         str[str_size] = '\0';
         printf("%s", str);
         str_size = read(fd, str, (BUFSIZE - 1) * sizeof(char));
