@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "Can't generate key.\n");
         exit(0);
     }
-
+        // CPA: какие занчения можно передать вторым параметром?
     int shmid = shmget(shm_key, sizeof(int), 0600);//Нельзя просто так узнать размер памяти, а передавать ещё память с длиной строки лень
     if (shmid < 0) {
         fprintf(stderr, "Can't get shared memory. Error:%d\n", errno);
